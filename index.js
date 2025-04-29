@@ -7,3 +7,11 @@ function showGlobalVar() {
 
 showGlobalVar(); // Output: I am global!
 console.log(globalVar); // Output: I am global!
+
+function myFunction() {
+  var localVar = "I am local!";
+  console.log(localVar); // Works fine
+}
+
+myFunction(); // Output: I am local!
+console.log(localVar); // ❌ Error: localVar is not defined
