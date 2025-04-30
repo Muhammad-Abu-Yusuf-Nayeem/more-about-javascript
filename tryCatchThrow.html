@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Try Catch Throw Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      input,
+      button {
+        padding: 8px;
+        margin-top: 10px;
+      }
+      .output {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Enter Your Age</h2>
+    <input type="text" id="ageInput" placeholder="Enter age" />
+    <button onclick="validateAge()">Submit</button>
+
+    <div class="output" id="result"></div>
+
+    <script>
+      function validateAge() {
+        const input = document.getElementById("ageInput").value;
+        const result = document.getElementById("result");
+
+        try {
+          // Check if input is empty
+          if (input === "") throw "Age is required!";
+
+          // Check if it's a number
+          if (isNaN(input)) throw "Age must be a number!";
+
+          const age = Number(input);
+
+          // Check for negative or unrealistic age
+          if (age <= 0) throw "Age must be a positive number!";
+          if (age > 120) throw "Age seems too high!";
+
+          // If everything is fine
+          result.style.color = "green";
+          result.textContent = `You entered a valid age: ${age}`;
+        } catch (error) {
+          // Handle errors thrown above
+          result.style.color = "red";
+          result.textContent = `Error: ${error}`;
+        } finally {
+          console.log("Validation attempt finished.");
+        }
+      }
+    </script>
+  </body>
+</html>
