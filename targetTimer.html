@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Timer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-[#5d6d7e] flex flex-col items-center justify-center min-h-screen space-y-6 p-4"
+  >
+    <div
+      class="bg-blue-700 text-white text-5xl font-bold px-10 py-6 rounded-xl w-[400px] h-[150px] flex justify-center items-center"
+    >
+      <span id="sessionTitle">Study</span>
+    </div>
+
+    <div class="flex flex-col space-x-2">
+      <div
+        class="bg-blue-700 text-white text-7xl font-bold p-6 rounded-md text-center w-[400px]"
+      >
+        <span id="timerDisplay" class="">00:00:00</span>
+      </div>
+      <div class="flex pt-8 grow gap-6">
+        <button
+          onclick="toggleTimer()"
+          class="bg-blue-700 text-white px-4 py-2 rounded-md font-semibold grow"
+        >
+          Pause/Start
+        </button>
+        <button
+          onclick="stopTimer()"
+          class="bg-blue-700 text-white px-4 py-2 rounded-md font-semibold grow"
+        >
+          Stop
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-row space-x-2 mt-6">
+      <input
+        type="text"
+        id="titleInput"
+        placeholder="title"
+        class="bg-blue-700 text-white p-2 rounded-md text-center w-[340px]"
+      />
+      <button
+        onclick="addTitle()"
+        class="bg-blue-700 text-white px-4 py-2 rounded-md font-semibold"
+      >
+        Add title
+      </button>
+    </div>
+
+    <div class="flex flex-row space-x-2">
+      <input
+        type="number"
+        id="minuteInput"
+        placeholder="minutes"
+        class="bg-blue-700 text-white p-2 rounded-md text-center w-[315px]"
+      />
+      <button
+        onclick="addMinute()"
+        class="bg-blue-700 text-white px-4 py-2 rounded-md font-semibold"
+      >
+        Add minute
+      </button>
+    </div>
+
+    <script>
+      let timer = null;
+      let isRunning = false;
+      let timeInSeconds = 8400; // 2 hours 20 minutes default
+
+      function updateDisplay() {
+        const hours = String(Math.floor(timeInSeconds / 3600)).padStart(2, "0");
+        const minutes = String(
+          Math.floor((timeInSeconds % 3600) / 60)
+        ).padStart(2, "0");
+        const seconds = String(timeInSeconds % 60).padStart(2, "0");
+        document.getElementById(
+          "timerDisplay"
+        ).textContent = `${hours}:${minutes}:${seconds}`;
+      }
+
+      function toggleTimer() {
+        if (isRunning) {
+          clearInterval(timer);
+          isRunning = false;
+        } else {
+          if (timeInSeconds <= 0) return; // Don't start if no time is set
+
+          timer = setInterval(() => {
+            if (timeInSeconds > 0) {
+              timeInSeconds--;
+              updateDisplay();
+            } else {
+              clearInterval(timer);
+              isRunning = false;
+            }
+          }, 1000);
+          isRunning = true;
+        }
+      }
+
+      function stopTimer() {
+        clearInterval(timer);
+        isRunning = false;
+        timeInSeconds = 0;
+        updateDisplay();
+      }
+
+      function addTitle() {
+        const title = document.getElementById("titleInput").value.trim();
+        if (title) {
+          document.getElementById("sessionTitle").textContent = title;
+          document.getElementById("titleInput").value = "";
+        }
+      }
+
+      function addMinute() {
+        const minutes = parseInt(document.getElementById("minuteInput").value);
+        if (!isNaN(minutes) && minutes > 0) {
+          timeInSeconds += minutes * 60;
+          updateDisplay();
+          document.getElementById("minuteInput").value = "";
+        }
+      }
+
+      // Initial render
+      updateDisplay();
+    </script>
+  </body>
+</html>
