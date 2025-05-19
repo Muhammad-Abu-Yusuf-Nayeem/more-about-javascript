@@ -71,3 +71,120 @@ function second() {
 
 second();
 ```
+
+Each function call adds a new context to the **top of the stack**, and it’s removed once execution completes.
+
+---
+
+## 🔍 Example: Execution Context and `this`
+
+```js
+var name = "Window";
+
+function sayName() {
+  console.log(this.name);
+}
+
+sayName(); // "Window" in browsers
+
+const obj = {
+  name: "Object",
+  sayName: function () {
+    console.log(this.name);
+  }
+};
+
+obj.sayName(); // "Object"
+
+
+```
+
+# 📚 JavaScript Call Stack
+
+The **Call Stack** is a crucial part of the JavaScript engine that helps manage the execution of function calls. Since JavaScript is **single-threaded**, the call stack handles **one function at a time**.
+
+---
+
+## 🧠 What is the Call Stack?
+
+The **call stack** is a data structure (specifically, a **stack**) that keeps track of the function calls in your program.
+
+It follows the **LIFO** principle:
+> **Last In, First Out**
+
+This means the **last function called** is the **first to finish** and get removed from the stack.
+
+---
+
+## 🧵 How the Call Stack Works
+
+### Example:
+
+```js
+function greet() {
+  console.log("Hello");
+}
+
+function welcome() {
+  greet();
+  console.log("Welcome!");
+}
+
+welcome();
+```
+
+📊 Call Stack Steps
+Let's walk through what happens step by step when the above code runs:
+
+Global Execution Context is created and pushed onto the call stack.
+
+The engine encounters welcome() and pushes welcome() context onto the stack.
+
+Inside welcome(), greet() is called → greet() context is pushed onto the stack.
+
+greet() executes console.log("Hello").
+
+After greet() finishes, it is popped off the call stack.
+
+Control returns to welcome(), which now runs console.log("Welcome!").
+
+After welcome() finishes, it is popped off the stack.
+
+Execution continues in the global context (or ends if complete).
+
+🔄 Visual Snapshot of Call Stack Flow:
+``` csharp
+
+Initial:
+[ Global ]
+
+After calling welcome():
+[ Global ]
+[ welcome() ]
+
+After calling greet():
+[ Global ]
+[ welcome() ]
+[ greet() ]
+
+After greet() finishes:
+[ Global ]
+[ welcome() ]
+
+After welcome() finishes:
+[ Global ]
+```
+After all complete:
+[ ]
+⚠️ Call Stack Overflow
+If functions keep calling themselves without a base case, the stack keeps growing and eventually overflows:
+
+Example:
+```js
+
+function infinite() {
+  return infinite();
+}
+
+infinite(); // ❌ RangeError: Maximum call stack size exceeded
+```
