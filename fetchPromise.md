@@ -60,5 +60,35 @@ async function getData() {
   }
 }
 
+```
+
+## JavaScript: setInterval and clearInterval
+
+### setInterval()
+
+- `setInterval()` is used to run a function **repeatedly** at specified time intervals (in milliseconds).
+- It continues until stopped with `clearInterval()`.
+- Returns an **interval ID**, which can be used to stop the execution later.
+
+### clearInterval()
+
+- `clearInterval()` is used to **stop** the function that was started by `setInterval()`.
+- It requires the **interval ID** returned by `setInterval()`.
+
+### Example:
+```js
+function sayHello() {
+  console.log("Hello every 2 seconds!");
+}
+
+const intervalId = setInterval(sayHello, 2000);
+
+// Stop the interval after 6 seconds
+setTimeout(() => {
+  clearInterval(intervalId);
+  console.log("Interval stopped.");
+}, 6000);
+```
+
 getData();
 ```
