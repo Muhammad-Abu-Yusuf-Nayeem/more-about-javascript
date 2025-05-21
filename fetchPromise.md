@@ -14,7 +14,7 @@ fetch("https://api.example.com/data")
   .catch((error) => console.error("Error:", error));
 ```
 
-2. Promise
+## 2. Promise
    A Promise represents a value that may be available now, later, or never.
 
 It has 3 states:
