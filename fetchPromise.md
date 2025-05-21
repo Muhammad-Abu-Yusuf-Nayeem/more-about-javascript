@@ -15,15 +15,16 @@ fetch("https://api.example.com/data")
 ```
 
 ## 2. Promise
-   A Promise represents a value that may be available now, later, or never.
+
+A Promise represents a value that may be available now, later, or never.
 
 It has 3 states:
 
-Pending: initial state
+- Pending: initial state
 
-Fulfilled: operation completed successfully
+- Fulfilled: operation completed successfully
 
-Rejected: operation failed
+- Rejected: operation failed
 
 ```js
 const myPromise = new Promise((resolve, reject) => {
@@ -40,12 +41,11 @@ myPromise
   .catch((error) => console.error(error));
 ```
 
-3. async/await
-   async functions always return a Promise.
+## 3. async/await
 
-await can be used inside async functions to wait for a Promise to resolve.
+- async functions always return a Promise.
 
-Makes asynchronous code look synchronous (cleaner and easier to read).
+- await can be used inside async functions to wait for a Promise to resolve. Makes asynchronous code look synchronous (cleaner and easier to read).
 
 Example with fetch:
 
@@ -59,7 +59,6 @@ async function getData() {
     console.error("Error:", error);
   }
 }
-
 ```
 
 ## JavaScript: setInterval and clearInterval
@@ -76,6 +75,7 @@ async function getData() {
 - It requires the **interval ID** returned by `setInterval()`.
 
 ### Example:
+
 ```js
 function sayHello() {
   console.log("Hello every 2 seconds!");
@@ -91,4 +91,7 @@ setTimeout(() => {
 ```
 
 getData();
+
+```
+
 ```
