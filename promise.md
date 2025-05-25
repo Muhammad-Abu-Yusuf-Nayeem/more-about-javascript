@@ -86,3 +86,109 @@ fetchPost();
 | then()    | Handle success                   |
 | catch()   | Handle errors                    |
 | finally() | Always runs (success or failure) |
+
+
+## ✅ Step 1: Basic Promise for a Fake Download
+
+```js
+
+function downloadFile(fileName) {
+  return new Promise((resolve, reject) => {
+    console.log(`⬇️ Starting download: ${fileName}...`);
+
+    // Simulate a delay using setTimeout
+    setTimeout(() => {
+      const success = true; // Change to false to test rejection
+
+      if (success) {
+        resolve(`✅ Download completed: ${fileName}`);
+      } else {
+        reject(`❌ Download failed: ${fileName}`);
+      }
+    }, 2000); // 2 seconds delay
+  });
+}
+
+```
+
+---
+
+## ✅ Step 2: Use `.then()` and `.catch()` to handle the Promise
+
+```js
+
+downloadFile("video.mp4")
+  .then(message => {
+    console.log(message);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+```
+
+## 🧪 Output after 2 seconds:
+
+```
+⬇️ Starting download: video.mp4...
+✅ Download completed: video.mp4
+
+```
+
+If you set `success = false`, it will show:
+
+```
+
+⬇️ Starting download: video.mp4...
+❌ Download failed: video.mp4
+
+```
+
+---
+
+## ✅ Step 3: Multiple Downloads with Chaining
+
+```javascript
+CopyEdit
+downloadFile("video1.mp4")
+  .then(msg1 => {
+    console.log(msg1);
+    return downloadFile("video2.mp4");
+  })
+  .then(msg2 => {
+    console.log(msg2);
+    return downloadFile("video3.mp4");
+  })
+  .then(msg3 => {
+    console.log(msg3);
+  })
+  .catch(error => {
+    console.error("Error during download:", error);
+  });
+
+```
+
+---
+
+## ✅ Bonus: Using `async` / `await` for the same
+
+```javascript
+
+async function startDownload() {
+  try {
+    const msg1 = await downloadFile("fileA.mp4");
+    console.log(msg1);
+
+    const msg2 = await downloadFile("fileB.mp4");
+    console.log(msg2);
+
+    const msg3 = await downloadFile("fileC.mp4");
+    console.log(msg3);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+startDownload();
+
+```
