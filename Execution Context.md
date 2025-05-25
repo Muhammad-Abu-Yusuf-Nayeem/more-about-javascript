@@ -91,12 +91,10 @@ const obj = {
   name: "Object",
   sayName: function () {
     console.log(this.name);
-  }
+  },
 };
 
 obj.sayName(); // "Object"
-
-
 ```
 
 # 📚 JavaScript Call Stack
@@ -110,6 +108,7 @@ The **Call Stack** is a crucial part of the JavaScript engine that helps manage 
 The **call stack** is a data structure (specifically, a **stack**) that keeps track of the function calls in your program.
 
 It follows the **LIFO** principle:
+
 > **Last In, First Out**
 
 This means the **last function called** is the **first to finish** and get removed from the stack.
@@ -153,7 +152,8 @@ After welcome() finishes, it is popped off the stack.
 Execution continues in the global context (or ends if complete).
 
 🔄 Visual Snapshot of Call Stack Flow:
-``` csharp
+
+```csharp
 
 Initial:
 [ Global ]
@@ -174,14 +174,15 @@ After greet() finishes:
 After welcome() finishes:
 [ Global ]
 ```
+
 After all complete:
 [ ]
 ⚠️ Call Stack Overflow
 If functions keep calling themselves without a base case, the stack keeps growing and eventually overflows:
 
 Example:
-```js
 
+```js
 function infinite() {
   return infinite();
 }
